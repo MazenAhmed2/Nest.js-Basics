@@ -955,6 +955,36 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type UserCountOutputType
+   */
+
+  export type UserCountOutputType = {
+    bookmarks: number
+  }
+
+  export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bookmarks?: boolean | UserCountOutputTypeCountBookmarksArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBookmarksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BookmarkWhereInput
+  }
+
 
   /**
    * Models
@@ -1174,6 +1204,8 @@ export namespace Prisma {
     hash?: boolean
     firstName?: boolean
     lastName?: boolean
+    bookmarks?: boolean | User$bookmarksArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1207,10 +1239,18 @@ export namespace Prisma {
   }
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAT" | "email" | "hash" | "firstName" | "lastName", ExtArgs["result"]["user"]>
+  export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    bookmarks?: boolean | User$bookmarksArgs<ExtArgs>
+    _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
-    objects: {}
+    objects: {
+      bookmarks: Prisma.$BookmarkPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       createdAt: Date
@@ -1613,6 +1653,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    bookmarks<T extends User$bookmarksArgs<ExtArgs> = {}>(args?: Subset<T, User$bookmarksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookmarkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1666,6 +1707,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1684,6 +1729,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where: UserWhereUniqueInput
@@ -1701,6 +1750,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * Filter, which User to fetch.
      */
@@ -1750,6 +1803,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which User to fetch.
      */
     where?: UserWhereInput
@@ -1798,6 +1855,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter, which Users to fetch.
      */
     where?: UserWhereInput
@@ -1840,6 +1901,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to create a User.
      */
@@ -1888,6 +1953,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
     /**
      * The data needed to update a User.
      */
@@ -1955,6 +2024,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * The filter to search for the User to update in case it exists.
      */
     where: UserWhereUniqueInput
@@ -1981,6 +2054,10 @@ export namespace Prisma {
      */
     omit?: UserOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    /**
      * Filter which User to delete.
      */
     where: UserWhereUniqueInput
@@ -2001,6 +2078,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.bookmarks
+   */
+  export type User$bookmarksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Bookmark
+     */
+    select?: BookmarkSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Bookmark
+     */
+    omit?: BookmarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    where?: BookmarkWhereInput
+    orderBy?: BookmarkOrderByWithRelationInput | BookmarkOrderByWithRelationInput[]
+    cursor?: BookmarkWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BookmarkScalarFieldEnum | BookmarkScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2012,6 +2113,10 @@ export namespace Prisma {
      * Omit specific fields from the User
      */
     omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
   }
 
 
@@ -2029,10 +2134,12 @@ export namespace Prisma {
 
   export type BookmarkAvgAggregateOutputType = {
     id: number | null
+    userId: number | null
   }
 
   export type BookmarkSumAggregateOutputType = {
     id: number | null
+    userId: number | null
   }
 
   export type BookmarkMinAggregateOutputType = {
@@ -2042,6 +2149,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     link: string | null
+    userId: number | null
   }
 
   export type BookmarkMaxAggregateOutputType = {
@@ -2051,6 +2159,7 @@ export namespace Prisma {
     title: string | null
     description: string | null
     link: string | null
+    userId: number | null
   }
 
   export type BookmarkCountAggregateOutputType = {
@@ -2060,16 +2169,19 @@ export namespace Prisma {
     title: number
     description: number
     link: number
+    userId: number
     _all: number
   }
 
 
   export type BookmarkAvgAggregateInputType = {
     id?: true
+    userId?: true
   }
 
   export type BookmarkSumAggregateInputType = {
     id?: true
+    userId?: true
   }
 
   export type BookmarkMinAggregateInputType = {
@@ -2079,6 +2191,7 @@ export namespace Prisma {
     title?: true
     description?: true
     link?: true
+    userId?: true
   }
 
   export type BookmarkMaxAggregateInputType = {
@@ -2088,6 +2201,7 @@ export namespace Prisma {
     title?: true
     description?: true
     link?: true
+    userId?: true
   }
 
   export type BookmarkCountAggregateInputType = {
@@ -2097,6 +2211,7 @@ export namespace Prisma {
     title?: true
     description?: true
     link?: true
+    userId?: true
     _all?: true
   }
 
@@ -2193,6 +2308,7 @@ export namespace Prisma {
     title: string
     description: string | null
     link: string
+    userId: number
     _count: BookmarkCountAggregateOutputType | null
     _avg: BookmarkAvgAggregateOutputType | null
     _sum: BookmarkSumAggregateOutputType | null
@@ -2221,6 +2337,8 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     link?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bookmark"]>
 
   export type BookmarkSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2230,6 +2348,8 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     link?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bookmark"]>
 
   export type BookmarkSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2239,6 +2359,8 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     link?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["bookmark"]>
 
   export type BookmarkSelectScalar = {
@@ -2248,13 +2370,25 @@ export namespace Prisma {
     title?: boolean
     description?: boolean
     link?: boolean
+    userId?: boolean
   }
 
-  export type BookmarkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAT" | "title" | "description" | "link", ExtArgs["result"]["bookmark"]>
+  export type BookmarkOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "createdAt" | "updatedAT" | "title" | "description" | "link" | "userId", ExtArgs["result"]["bookmark"]>
+  export type BookmarkInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type BookmarkIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type BookmarkIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
 
   export type $BookmarkPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Bookmark"
-    objects: {}
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       createdAt: Date
@@ -2262,6 +2396,7 @@ export namespace Prisma {
       title: string
       description: string | null
       link: string
+      userId: number
     }, ExtArgs["result"]["bookmark"]>
     composites: {}
   }
@@ -2656,6 +2791,7 @@ export namespace Prisma {
    */
   export interface Prisma__BookmarkClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2691,6 +2827,7 @@ export namespace Prisma {
     readonly title: FieldRef<"Bookmark", 'String'>
     readonly description: FieldRef<"Bookmark", 'String'>
     readonly link: FieldRef<"Bookmark", 'String'>
+    readonly userId: FieldRef<"Bookmark", 'Int'>
   }
     
 
@@ -2707,6 +2844,10 @@ export namespace Prisma {
      * Omit specific fields from the Bookmark
      */
     omit?: BookmarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
     /**
      * Filter, which Bookmark to fetch.
      */
@@ -2726,6 +2867,10 @@ export namespace Prisma {
      */
     omit?: BookmarkOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
      * Filter, which Bookmark to fetch.
      */
     where: BookmarkWhereUniqueInput
@@ -2743,6 +2888,10 @@ export namespace Prisma {
      * Omit specific fields from the Bookmark
      */
     omit?: BookmarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
     /**
      * Filter, which Bookmark to fetch.
      */
@@ -2792,6 +2941,10 @@ export namespace Prisma {
      */
     omit?: BookmarkOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
      * Filter, which Bookmark to fetch.
      */
     where?: BookmarkWhereInput
@@ -2840,6 +2993,10 @@ export namespace Prisma {
      */
     omit?: BookmarkOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
      * Filter, which Bookmarks to fetch.
      */
     where?: BookmarkWhereInput
@@ -2883,6 +3040,10 @@ export namespace Prisma {
      */
     omit?: BookmarkOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
+    /**
      * The data needed to create a Bookmark.
      */
     data: XOR<BookmarkCreateInput, BookmarkUncheckedCreateInput>
@@ -2916,6 +3077,10 @@ export namespace Prisma {
      */
     data: BookmarkCreateManyInput | BookmarkCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2930,6 +3095,10 @@ export namespace Prisma {
      * Omit specific fields from the Bookmark
      */
     omit?: BookmarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
     /**
      * The data needed to update a Bookmark.
      */
@@ -2982,6 +3151,10 @@ export namespace Prisma {
      * Limit how many Bookmarks to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2996,6 +3169,10 @@ export namespace Prisma {
      * Omit specific fields from the Bookmark
      */
     omit?: BookmarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
     /**
      * The filter to search for the Bookmark to update in case it exists.
      */
@@ -3022,6 +3199,10 @@ export namespace Prisma {
      * Omit specific fields from the Bookmark
      */
     omit?: BookmarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
     /**
      * Filter which Bookmark to delete.
      */
@@ -3054,6 +3235,10 @@ export namespace Prisma {
      * Omit specific fields from the Bookmark
      */
     omit?: BookmarkOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BookmarkInclude<ExtArgs> | null
   }
 
 
@@ -3090,7 +3275,8 @@ export namespace Prisma {
     updatedAT: 'updatedAT',
     title: 'title',
     description: 'description',
-    link: 'link'
+    link: 'link',
+    userId: 'userId'
   };
 
   export type BookmarkScalarFieldEnum = (typeof BookmarkScalarFieldEnum)[keyof typeof BookmarkScalarFieldEnum]
@@ -3195,6 +3381,7 @@ export namespace Prisma {
     hash?: StringFilter<"User"> | string
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
+    bookmarks?: BookmarkListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -3205,20 +3392,22 @@ export namespace Prisma {
     hash?: SortOrder
     firstName?: SortOrderInput | SortOrder
     lastName?: SortOrderInput | SortOrder
+    bookmarks?: BookmarkOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    email?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAT?: DateTimeFilter<"User"> | Date | string
-    email?: StringFilter<"User"> | string
     hash?: StringFilter<"User"> | string
     firstName?: StringNullableFilter<"User"> | string | null
     lastName?: StringNullableFilter<"User"> | string | null
-  }, "id">
+    bookmarks?: BookmarkListRelationFilter
+  }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -3258,6 +3447,8 @@ export namespace Prisma {
     title?: StringFilter<"Bookmark"> | string
     description?: StringNullableFilter<"Bookmark"> | string | null
     link?: StringFilter<"Bookmark"> | string
+    userId?: IntFilter<"Bookmark"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type BookmarkOrderByWithRelationInput = {
@@ -3267,6 +3458,8 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     link?: SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
   }
 
   export type BookmarkWhereUniqueInput = Prisma.AtLeast<{
@@ -3279,6 +3472,8 @@ export namespace Prisma {
     title?: StringFilter<"Bookmark"> | string
     description?: StringNullableFilter<"Bookmark"> | string | null
     link?: StringFilter<"Bookmark"> | string
+    userId?: IntFilter<"Bookmark"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type BookmarkOrderByWithAggregationInput = {
@@ -3288,6 +3483,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrderInput | SortOrder
     link?: SortOrder
+    userId?: SortOrder
     _count?: BookmarkCountOrderByAggregateInput
     _avg?: BookmarkAvgOrderByAggregateInput
     _max?: BookmarkMaxOrderByAggregateInput
@@ -3305,6 +3501,7 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"Bookmark"> | string
     description?: StringNullableWithAggregatesFilter<"Bookmark"> | string | null
     link?: StringWithAggregatesFilter<"Bookmark"> | string
+    userId?: IntWithAggregatesFilter<"Bookmark"> | number
   }
 
   export type UserCreateInput = {
@@ -3314,6 +3511,7 @@ export namespace Prisma {
     hash: string
     firstName?: string | null
     lastName?: string | null
+    bookmarks?: BookmarkCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -3324,6 +3522,7 @@ export namespace Prisma {
     hash: string
     firstName?: string | null
     lastName?: string | null
+    bookmarks?: BookmarkUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -3333,6 +3532,7 @@ export namespace Prisma {
     hash?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    bookmarks?: BookmarkUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -3343,6 +3543,7 @@ export namespace Prisma {
     hash?: StringFieldUpdateOperationsInput | string
     firstName?: NullableStringFieldUpdateOperationsInput | string | null
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    bookmarks?: BookmarkUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -3380,6 +3581,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     link: string
+    user: UserCreateNestedOneWithoutBookmarksInput
   }
 
   export type BookmarkUncheckedCreateInput = {
@@ -3389,6 +3591,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     link: string
+    userId: number
   }
 
   export type BookmarkUpdateInput = {
@@ -3397,6 +3600,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     link?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutBookmarksNestedInput
   }
 
   export type BookmarkUncheckedUpdateInput = {
@@ -3406,6 +3610,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     link?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type BookmarkCreateManyInput = {
@@ -3415,6 +3620,7 @@ export namespace Prisma {
     title: string
     description?: string | null
     link: string
+    userId: number
   }
 
   export type BookmarkUpdateManyMutationInput = {
@@ -3432,6 +3638,7 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     link?: StringFieldUpdateOperationsInput | string
+    userId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -3486,9 +3693,19 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type BookmarkListRelationFilter = {
+    every?: BookmarkWhereInput
+    some?: BookmarkWhereInput
+    none?: BookmarkWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type BookmarkOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -3595,6 +3812,11 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
   export type BookmarkCountOrderByAggregateInput = {
     id?: SortOrder
     createdAt?: SortOrder
@@ -3602,10 +3824,12 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     link?: SortOrder
+    userId?: SortOrder
   }
 
   export type BookmarkAvgOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
   }
 
   export type BookmarkMaxOrderByAggregateInput = {
@@ -3615,6 +3839,7 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     link?: SortOrder
+    userId?: SortOrder
   }
 
   export type BookmarkMinOrderByAggregateInput = {
@@ -3624,10 +3849,26 @@ export namespace Prisma {
     title?: SortOrder
     description?: SortOrder
     link?: SortOrder
+    userId?: SortOrder
   }
 
   export type BookmarkSumOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type BookmarkCreateNestedManyWithoutUserInput = {
+    create?: XOR<BookmarkCreateWithoutUserInput, BookmarkUncheckedCreateWithoutUserInput> | BookmarkCreateWithoutUserInput[] | BookmarkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BookmarkCreateOrConnectWithoutUserInput | BookmarkCreateOrConnectWithoutUserInput[]
+    createMany?: BookmarkCreateManyUserInputEnvelope
+    connect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+  }
+
+  export type BookmarkUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<BookmarkCreateWithoutUserInput, BookmarkUncheckedCreateWithoutUserInput> | BookmarkCreateWithoutUserInput[] | BookmarkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BookmarkCreateOrConnectWithoutUserInput | BookmarkCreateOrConnectWithoutUserInput[]
+    createMany?: BookmarkCreateManyUserInputEnvelope
+    connect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -3642,12 +3883,54 @@ export namespace Prisma {
     set?: string | null
   }
 
+  export type BookmarkUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BookmarkCreateWithoutUserInput, BookmarkUncheckedCreateWithoutUserInput> | BookmarkCreateWithoutUserInput[] | BookmarkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BookmarkCreateOrConnectWithoutUserInput | BookmarkCreateOrConnectWithoutUserInput[]
+    upsert?: BookmarkUpsertWithWhereUniqueWithoutUserInput | BookmarkUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BookmarkCreateManyUserInputEnvelope
+    set?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    disconnect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    delete?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    connect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    update?: BookmarkUpdateWithWhereUniqueWithoutUserInput | BookmarkUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BookmarkUpdateManyWithWhereWithoutUserInput | BookmarkUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BookmarkScalarWhereInput | BookmarkScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type BookmarkUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BookmarkCreateWithoutUserInput, BookmarkUncheckedCreateWithoutUserInput> | BookmarkCreateWithoutUserInput[] | BookmarkUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BookmarkCreateOrConnectWithoutUserInput | BookmarkCreateOrConnectWithoutUserInput[]
+    upsert?: BookmarkUpsertWithWhereUniqueWithoutUserInput | BookmarkUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BookmarkCreateManyUserInputEnvelope
+    set?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    disconnect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    delete?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    connect?: BookmarkWhereUniqueInput | BookmarkWhereUniqueInput[]
+    update?: BookmarkUpdateWithWhereUniqueWithoutUserInput | BookmarkUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BookmarkUpdateManyWithWhereWithoutUserInput | BookmarkUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BookmarkScalarWhereInput | BookmarkScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutBookmarksInput = {
+    create?: XOR<UserCreateWithoutBookmarksInput, UserUncheckedCreateWithoutBookmarksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBookmarksInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutBookmarksNestedInput = {
+    create?: XOR<UserCreateWithoutBookmarksInput, UserUncheckedCreateWithoutBookmarksInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBookmarksInput
+    upsert?: UserUpsertWithoutBookmarksInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBookmarksInput, UserUpdateWithoutBookmarksInput>, UserUncheckedUpdateWithoutBookmarksInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -3784,6 +4067,151 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type BookmarkCreateWithoutUserInput = {
+    createdAt?: Date | string
+    updatedAT?: Date | string
+    title: string
+    description?: string | null
+    link: string
+  }
+
+  export type BookmarkUncheckedCreateWithoutUserInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAT?: Date | string
+    title: string
+    description?: string | null
+    link: string
+  }
+
+  export type BookmarkCreateOrConnectWithoutUserInput = {
+    where: BookmarkWhereUniqueInput
+    create: XOR<BookmarkCreateWithoutUserInput, BookmarkUncheckedCreateWithoutUserInput>
+  }
+
+  export type BookmarkCreateManyUserInputEnvelope = {
+    data: BookmarkCreateManyUserInput | BookmarkCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BookmarkUpsertWithWhereUniqueWithoutUserInput = {
+    where: BookmarkWhereUniqueInput
+    update: XOR<BookmarkUpdateWithoutUserInput, BookmarkUncheckedUpdateWithoutUserInput>
+    create: XOR<BookmarkCreateWithoutUserInput, BookmarkUncheckedCreateWithoutUserInput>
+  }
+
+  export type BookmarkUpdateWithWhereUniqueWithoutUserInput = {
+    where: BookmarkWhereUniqueInput
+    data: XOR<BookmarkUpdateWithoutUserInput, BookmarkUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BookmarkUpdateManyWithWhereWithoutUserInput = {
+    where: BookmarkScalarWhereInput
+    data: XOR<BookmarkUpdateManyMutationInput, BookmarkUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type BookmarkScalarWhereInput = {
+    AND?: BookmarkScalarWhereInput | BookmarkScalarWhereInput[]
+    OR?: BookmarkScalarWhereInput[]
+    NOT?: BookmarkScalarWhereInput | BookmarkScalarWhereInput[]
+    id?: IntFilter<"Bookmark"> | number
+    createdAt?: DateTimeFilter<"Bookmark"> | Date | string
+    updatedAT?: DateTimeFilter<"Bookmark"> | Date | string
+    title?: StringFilter<"Bookmark"> | string
+    description?: StringNullableFilter<"Bookmark"> | string | null
+    link?: StringFilter<"Bookmark"> | string
+    userId?: IntFilter<"Bookmark"> | number
+  }
+
+  export type UserCreateWithoutBookmarksInput = {
+    createdAt?: Date | string
+    updatedAT?: Date | string
+    email: string
+    hash: string
+    firstName?: string | null
+    lastName?: string | null
+  }
+
+  export type UserUncheckedCreateWithoutBookmarksInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAT?: Date | string
+    email: string
+    hash: string
+    firstName?: string | null
+    lastName?: string | null
+  }
+
+  export type UserCreateOrConnectWithoutBookmarksInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBookmarksInput, UserUncheckedCreateWithoutBookmarksInput>
+  }
+
+  export type UserUpsertWithoutBookmarksInput = {
+    update: XOR<UserUpdateWithoutBookmarksInput, UserUncheckedUpdateWithoutBookmarksInput>
+    create: XOR<UserCreateWithoutBookmarksInput, UserUncheckedCreateWithoutBookmarksInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBookmarksInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBookmarksInput, UserUncheckedUpdateWithoutBookmarksInput>
+  }
+
+  export type UserUpdateWithoutBookmarksInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAT?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    hash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserUncheckedUpdateWithoutBookmarksInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAT?: DateTimeFieldUpdateOperationsInput | Date | string
+    email?: StringFieldUpdateOperationsInput | string
+    hash?: StringFieldUpdateOperationsInput | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type BookmarkCreateManyUserInput = {
+    id?: number
+    createdAt?: Date | string
+    updatedAT?: Date | string
+    title: string
+    description?: string | null
+    link: string
+  }
+
+  export type BookmarkUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAT?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    link?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BookmarkUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAT?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    link?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type BookmarkUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAT?: DateTimeFieldUpdateOperationsInput | Date | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    link?: StringFieldUpdateOperationsInput | string
   }
 
 

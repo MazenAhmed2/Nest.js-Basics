@@ -136,7 +136,8 @@ exports.Prisma.BookmarkScalarFieldEnum = {
   updatedAT: 'updatedAT',
   title: 'title',
   description: 'description',
-  link: 'link'
+  link: 'link',
+  userId: 'userId'
 };
 
 exports.Prisma.SortOrder = {
