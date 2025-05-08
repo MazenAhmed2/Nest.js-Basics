@@ -12,6 +12,17 @@ services:
       - freecodecamp
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+
+  test-db:
+    image: postgres:13
+    ports:
+      - 5433:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mazen
+      POSTGRES_DB: nest 
+    networks:
+      - freecodecamp
     
 networks:
   freecodecamp:

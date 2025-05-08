@@ -9,6 +9,13 @@
     "start:dev-db": "docker compose up dev-db -d && sleep 1 && npm run migrate:dev-db",
     "migrate:dev-db": "npx prisma migrate deploy",
     "restart:dev-db": "docker compose rm dev-db -s -f -v && npm run start:dev-db",
+
+    "start:test-db": "docker compose up test-db -d && sleep 1 && npm run migrate:test-db",
+    "migrate:test-db": "dotenv -e .env.test -- npx prisma migrate deploy",
+    "restart:test-db": "docker compose rm test-db -s -f -v && npm run start:test-db",
+
+    "studio:test" : "npx dotenv -e .env.test -- prisma studio",
+
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -20,7 +27,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "pretest:e2e": "npm run restart:test-db",
+    "test:e2e": "dotenv -e .env.test -- jest --watch --no-cache --config  ./test/jest-e2e.json"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
@@ -51,6 +59,7 @@
     "@types/node": "^22.10.7",
     "@types/passport-jwt": "^4.0.1",
     "@types/supertest": "^6.0.2",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.2",
