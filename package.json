@@ -9,13 +9,10 @@
     "start:dev-db": "docker compose up dev-db -d && sleep 1 && npm run migrate:dev-db",
     "migrate:dev-db": "npx prisma migrate deploy",
     "restart:dev-db": "docker compose rm dev-db -s -f -v && npm run start:dev-db",
-
     "start:test-db": "docker compose up test-db -d && sleep 1 && npm run migrate:test-db",
     "migrate:test-db": "dotenv -e .env.test -- npx prisma migrate deploy",
     "restart:test-db": "docker compose rm test-db -s -f -v && npm run start:test-db",
-
-    "studio:test" : "npx dotenv -e .env.test -- prisma studio",
-
+    "studio:test": "npx dotenv -e .env.test -- prisma studio",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -65,6 +62,7 @@
     "eslint-plugin-prettier": "^5.2.2",
     "globals": "^16.0.0",
     "jest": "^29.7.0",
+    "pactum": "^3.7.6",
     "prettier": "^3.4.2",
     "prisma": "^6.7.0",
     "source-map-support": "^0.5.21",
