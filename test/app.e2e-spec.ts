@@ -5,6 +5,8 @@ import { PrismaService } from '../src/prisma/prisma.service'
 import * as pactum from 'pactum'
 import { AuthDto } from '../src/auth/dto'
 import { EditUserDto } from '../src/user/dto'
+import { dot } from 'node:test/reporters'
+import { CreateBookmarkDto } from 'src/bookmark/dto'
 
 describe('APP e2e', ()=>{
   let app : INestApplication
@@ -27,7 +29,7 @@ describe('APP e2e', ()=>{
     prisma = app.get(PrismaService)
 
     await prisma.cleanDb()
-    pactum.request.setBaseUrl('http://localhost:3333')
+    pactum.request.setBaseUrl('http://localhost:3333/')
   })
 
   afterAll(()=>{
@@ -43,19 +45,36 @@ describe('APP e2e', ()=>{
 
     describe('Signup', ()=>{
       it('should pass', ()=>{
-        pactum.spec().post(`auth/signup`).withBody(dto).expectStatus(201).inspect()
+        return pactum
+        .spec()
+        .post(`auth/signup`)
+        .withBody(dto)
+        .expectStatus(201)
       })
       it('empty email', ()=>{
-        pactum.spec().post(`auth/signup`).withBody({password : dto.password}).expectStatus(400).inspect()
+        return pactum
+        .spec()
+        .post(`auth/signup`)
+        .withBody({password : dto.password})
+        .expectStatus(400)
       })
       it('empty password', ()=>{
-        pactum.spec().post(`auth/signup`).withBody({email : dto.email}).expectStatus(400).inspect()
+        return pactum
+        .spec()
+        .post(`auth/signup`)
+        .withBody({email : dto.email})
+        .expectStatus(400)
       })
     })
 
     describe('Signin', ()=>{
       it('should pass', ()=>{
-        pactum.spec().post(`auth/signin`).withBody(dto).expectStatus(200).stores('userAt', 'access_token')
+        return pactum
+        .spec()
+        .post(`auth/signin`)
+        .withBody(dto)
+        .expectStatus(200)
+        .stores('userAt', 'access_token')
       })
     })
   })
@@ -64,10 +83,19 @@ describe('APP e2e', ()=>{
 
     describe('access user', ()=>{
       it('should pass', ()=>{
-        pactum.spec().get(`users/me`).withBearerToken('$S{userAt}').expectStatus(200).stores('userAt', 'access_token')
+        return pactum
+        .spec()
+        .get(`users/me`)
+        .withBearerToken('$S{userAt}')
+        .expectStatus(200)
+        .stores('userId', 'id')
       })
+
       it('no access token', ()=>{
-        pactum.spec().get(`users/me`).expectStatus(401).stores('userAt', 'access_token')
+        return pactum
+        .spec()
+        .get(`users/me`)
+        .expectStatus(401)
       })
     })
 
@@ -79,7 +107,14 @@ describe('APP e2e', ()=>{
       }
 
       it('should edit user', ()=>{
-        pactum.spec().patch(`users`).withBody(dto).withBearerToken('$S{userAt}').expectStatus(200).inspect()
+        return pactum.spec()
+        .patch(`users/$S{userId}`)
+        .withBody(dto)
+        .withBearerToken('$S{userAt}')
+        .expectStatus(200)
+        .expectBodyContains(dto.firstName)
+        .expectBodyContains(dto.lastName)
+        
       })
     })
 
@@ -87,7 +122,82 @@ describe('APP e2e', ()=>{
 
   describe('Bookmark', ()=>{
 
+    let dto : CreateBookmarkDto = {
+      title: 'Important',
+      description : 'this is description',
+      link : 'www.dla.com'
+    }
+
+    describe('Create Bookmark', ()=>{
+      it('should pass', ()=>{
+        return pactum.spec()
+        .post('bookmarks')
+        .withBody(dto)
+        .withBearerToken('$S{userAt}')
+        .expectBodyContains(dto.title)
+        .expectStatus(201)
+        .stores('bookmarkId', 'id')
+      })
+      
+    })
+
+    describe('Edit Bookmark', ()=>{
+      
+      dto.title = "edited"
+
+      it('should pass', ()=>{
+        return pactum.spec()
+        .patch('bookmarks/{id}')
+        .withPathParams('id', '$S{bookmarkId}')
+        .withBody(dto)
+        .withBearerToken('$S{userAt}')
+        .expectBodyContains("edited")
+        .expectStatus(200)
+      })
+      
+    })
+
+    describe('Get Bookmarks', ()=>{
+      
+
+      it('get all', ()=>{
+        return pactum.spec()
+        .get('bookmarks')
+        .withBearerToken('$S{userAt}')
+        .expectStatus(200)
+        .expectJsonLength(1)
+      })
+      
+      it('get by id', ()=>{
+        return pactum.spec()
+        .get('bookmarks/{id}')
+        .withPathParams('id', '$S{bookmarkId}')
+        .withBearerToken('$S{userAt}')
+        .expectStatus(200)
+        .expectBodyContains('$S{bookmarkId}')
+      })
+      
+    })
+    
+    describe('Delete Bookmarks', ()=>{
+      
+      it('delete bookmark by id', ()=>{
+        return pactum.spec()
+        .delete('bookmarks/{id}')
+        .withPathParams('id', '$S{bookmarkId}')
+        .withBearerToken('$S{userAt}')
+        .expectStatus(204)
+      })
+
+      it('get empty bookmarks', ()=>{
+        return pactum.spec()
+        .get('bookmarks')
+        .withBearerToken('$S{userAt}')
+        .expectStatus(200)
+        .expectJsonLength(0)
+      })
+
+    })
   })
 
-  it.todo('test')
 })
